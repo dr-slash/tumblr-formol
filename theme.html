@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<!-- FORMOL V1 BY DRSLASH -->
+<!--[if lt IE 7]><html class="lt-ie10 lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="lt-ie10 lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="lt-ie10 lt-ie9"> <![endif]-->
+<!--[if IE 9]><html class="lt-ie10"> <![endif]-->
+<!--[if gt IE 9]><!--> <html> <!--<![endif]-->
+<head>
+    {MobileAppHeaders}
+    <meta charset="utf-8">
+    {block:Description} <meta name="description" content="{MetaDescription}" /> {/block:Description}
+    <title>{block:TagPage}{Tag} - {/block:TagPage} {block:SearchPage}{lang:Search results for SearchQuery} - {/block:SearchPage}{block:PostSummary}{PostSummary} - {/block:PostSummary}{Title}</title>
+      
+    <!-- Theme Defaults -->
+    <meta name="text:Facebook Username" content=""/>
+    <meta name="text:Twitter Username" content=""/>
+    <meta name="text:Pinterest Username" content=""/>
+    <meta name="text:Dribble Username" content=""/>
+    <meta name="text:Flickr Username" content=""/>
+    <meta name="text:Instagram Username" content=""/>
+    
+    <meta name="if:Header on top" content="0"/>
+    <meta name="if:Add noise" content="1"/>
+    <meta name="if:Round portrait" content="1"/>
+    <meta name="if:Show description" content="1"/>
+    <meta name="if:Show copyright" content="1"/>
+    <meta name="if:Show search" content="1"/>
+    
+    <meta name="color:Dark Color" content="#26AD5E"/>
+    <meta name="color:Light Color" content="#2ECD71"/>
+    <meta name="color:Text Color" content="#FFFFFF"/>
+    
+    <meta name="text:Google Analytics ID" content=""/>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" href="{Favicon}"/>
+    <link rel="apple-touch-icon-precomposed" href="{PortraitURL-128}">
+    <link rel="alternate" type="application/rss+xml" title="{Title} RSS" href="{RSS}"/>
+    
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="http://static.tumblr.com/v7susgd/f4Rmsd75r/normalize.css">
+
+    <style>
+        .clear {clear:both;}
+        i {
+        width: 1em;
+        height: 1em;
+        display:block;
+        cursor: pointer;
+        }
+        body {
+            background: {color:Dark Color};
+            font-family: 'Open Sans', sans-serif;
+            font-size:14px;
+            color:{color:Text Color};
+            padding:0;
+            margin:0;
+        }
+        a {color:#fff;text-decoration:none;}
+        a:hover {color:#fff;opacity:.7;}
+        ul, ol {margin:0;padding:0;list-style:none;}
+        #infscr-loading {position:fixed;bottom:20px;left:50%;width:200px;padding:10px;text-align:center;background:{color:Dark Color};border-radius:4px;margin-left:-100px;}
+        #infscr-loading em {color:{color:Text Color};opacity:1;}
+        #infscr-loading img {display:none;}
+        header.fixed {
+            background-color:{color:Light Color};
+            position:fixed;
+            width:300px;
+            height:100%;
+            top:0;left:-280px;
+            z-index:999;
+            opacity:.2;
+        }
+        header.fixed:hover {
+            left:0;
+            opacity:1;
+        }
+        header.top {
+            background-color:{color:Light Color};
+        }
+        header.top p {max-width:300px;margin:0 auto;text-align:center;padding-bottom:20px;}
+        .searchbox {padding:10px 0;}
+        .searchbox input {padding:10px;display:block;border-radius:5px;border:none;margin:0 auto;width:90%;}
+        header.top .searchbox input {width:300px;}
+        .header-inner {padding:20px;}
+        .header-inner .avatar {
+            background:transparent url('{PortraitURL-128}') top left no-repeat;
+            {block:IfRoundPortrait}
+            border:10px solid {color:Text Color};
+            -webkit-border-radius: 100%;
+            border-radius: 100%; 
+            {block:IfRoundPortrait}
+            width:128px;height:128px;
+            margin:0 auto;
+        }
+        .header-inner h1 {
+            text-align:center;
+            text-transform:uppercase;
+            font-weight:800;
+            letter-spacing:2px;
+            {block:IfHeaderOnTop}margin:0 0 -20px 0;padding:20px 0;{/block:IfHeaderOnTop}
+            {block:IfNotHeaderOnTop}margin:0;padding:10px 0 0;{/block:IfNotHeaderOnTop}
+        }
+        .header-inner p {}
+        {block:IfNotHeaderOnTop}
+        .header-inner nav ul li {
+            display:block;
+            text-align:center;
+            text-transform:uppercase;
+        }
+        {/block:IfNotHeaderOnTop}
+        {block:IfHeaderOnTop}
+        .header-inner nav { text-align:center; width:300px;margin:0 auto;}
+        .header-inner nav ul {}
+        .header-inner nav ul li {display:inline-block;}
+        .header-inner nav ul li a {padding:10px;display:block;}
+        {/block:IfHeaderOnTop}
+        .header-inner .social-links {text-align:center;}
+        .header-inner .social-links a {padding:0 5px;font-size:18px;}
+        .header-inner .copy {padding-top:20px;font-size:10px;text-align:center;}
+        article {width:100%;position:relative;}
+        article .photo {position:relative;}
+        article .photo .noise,
+        article .photoset .noise {
+            position:absolute;
+            top:0;left:0;
+            width:100%;height:100%;
+        }
+        {block:IfAddNoise}
+        header, 
+        article,
+        article .photo .noise, 
+        article .photoset .noise {
+            background-image: url('http://static.tumblr.com/v7susgd/u6Fmstc7k/noisy-texture-100x100-o5-d10-c-358053-t1.png');
+        }
+        {/block:IfAddNoise}
+        article .pad {padding:40px;}
+        article .inner {position:relative;background-color: transparent;}
+        article h1 {
+            font-size:30px;
+            line-height:30px;
+            margin:0;
+            padding:0 0 20px 0;
+            text-transform:uppercase;
+        }
+        article .video iframe , 
+        article .video object, 
+        article .video embed, 
+        article .video video {
+            width:100%;
+            height:100%;
+        }
+        article .video .pad {padding-top:20px !important;}
+        article .photo footer, 
+        article .photoset .pad {
+            position:absolute;
+            bottom:20px;
+            right:20px;
+        }
+        article .photoset .pad {padding:0 !important;}
+        footer ul {margin:0;padding:0;}
+        footer ul li {float:right;text-align:right;margin-left:5px;}
+        footer .desc {margin:0;padding:0;}
+        footer .desc p {
+            font-size:14px;
+            font-weight:400;
+            text-transform:uppercase;
+            font-style:italic;
+            margin:0;padding:0;
+        }
+        footer .time {
+            font-size:12px;
+            font-weight:400;
+            text-transform:uppercase;
+            font-style:italic;
+        }
+        .scroll {
+            position:fixed;
+            bottom:0;right:0;
+            display:block;padding:5px;
+            cursor: pointer;
+        }
+        #notes {display:none;}
+        .tags {padding-top:10px;}
+        .tags li a {
+            display:block;
+            padding:5px;
+            background-color:{color:Light Color};
+            border-radius:4px;
+            text-transform:uppercase;
+            font-size:10px;
+        }
+        .audioplr .player li {padding:6px 4px 4px;border-radius:4px;background-color:#fff;margin-bottom:10px;}
+        ::-webkit-input-placeholder {color:{color:Light Color};}
+        :-moz-placeholder {color:{color:Light Color};}
+        ::-moz-placeholder {color:{color:Light Color};}
+        :-ms-input-placeholder {color:{color:Light Color};}
+        a,
+        a:hover,
+        header,
+        header:hover {
+    -webkit-transition: all .2s ease-in-out;-moz-transition: all .2s ease-in-out;-o-transition: all .2s ease-in-out;transition: all .2s ease-in-out;
+}
+		{CustomCSS}
+    </style>
+
+</head>
+<body class="{block:IndexPage}index {/block:IndexPage}{block:PermalinkPage}perma {/block:PermalinkPage}">
+    <header id="masthead" class="{block:IfNotHeaderOnTop}fixed{/block:IfNotHeaderOnTop}{block:IfHeaderOnTop}top{/block:IfHeaderOnTop}">
+        <div class="header-inner" onmouseover="">
+            <div class="avatar"> </div>
+            <h1><a href="/" title="{lang:Home}">{Title}</a></h1>
+            <nav>
+                <ul>
+                {block:HasPages}
+                {block:Pages}
+                <li><a href="{URL}">{Label}</a></li>
+                {/block:Pages}
+                {/block:HasPages}
+                {block:SubmissionsEnabled}
+                <li><a href="/submit">{SubmitLabel}</a></li>
+                {/block:SubmissionsEnabled}
+                {block:AskEnabled}
+                <li><a href="/ask">{AskLabel}</a></li>
+                {/block:AskEnabled}
+                </ul>
+            </nav>
+            {block:IfShowDescription}
+            {block:Description}
+            <p>{Description}</p>
+            {/block:Description}
+            {/block:IfShowDescription}
+            {block:IfShowSearch}
+            <div class="searchbox">
+            <form action="/search" method="get">
+                <input placeholder="{lang:Search}" type="text" name="q" value="{SearchQuery}"/>
+            </form>
+            </div>
+            {/block:IfShowSearch}
+            <div class="social-links">
+                {block:IfFacebookUsername}
+                <a href="http://facebook.com/{text:Facebook Username}"><i class="icon-facebook"></i></a>
+                {/block:IfFacebookUsername}
+                {block:IfTwitterUsername}
+                <a href="http://twitter.com/{text:Twitter Username}"><i class="icon-twitter"></i></a>
+                {/block:IfTwitterUsername}
+                {block:IfPinterestUsername}
+                <a href="http://pinterest.com/{text:Pinterest Username}"><i class="icon-pinterest"></i></a>
+                {/block:IfPinterestUsername}
+                {block:IfDribbleUsername}
+                <a href="http://dribbble.com/{text:Dribble Username}"><i class="icon-dribbble"></i></a>
+                {/block:IfDribbleUsername}
+                {block:IfFlickrUsername}
+                <a href="http://flickr.com/{text:Flickr Username}"><i class="icon-flickr"></i></a>
+                {/block:IfFlickrUsername}
+                {block:IfInstagramUsername}
+                <a href="http://instagram.com/{text:Instagram Username}"><i class="icon-instagram"></i></a>
+                {/block:IfInstagramUsername}
+                <a href="{RSS}"><i class="icon-rss"></i></a>
+            </div>
+            {block:IfShowCopyright}
+            <div class="copy"><a href="http://drslash.com" target="_blank">Theme by Dr/Slash</a></div>
+            {/block:IfShowCopyright}
+        </div>
+    </header>
+     
+    <div id="content">
+        {block:Posts}
+        <article>
+            
+            {block:Text}
+            <div class="text inner">
+            	<div class="pad">
+                	{block:Title}<h1 class="title"><a href="{Permalink}">{Title}</a></h1>{/block:Title}
+					{Body}
+					<footer class="metadata">
+						{block:Date}
+						<ul class="index">
+                    		<li><a href="{Permalink}" class="time"> <time datetime="{Year}-{MonthNumberWithZero}-{DayOfMonthWithZero}"> {DayOfMonth} {Month} {Year}</time></a></li>
+							{block:NoteCount}<li> <a class="notecount" href="{Permalink}">{NoteCountWithLabel}</a></li>{/block:NoteCount}
+							{block:ContentSource}
+							<li><a href="{SourceURL}"> {lang:Source}:{block:NoSourceLogo}{SourceTitle}{/block:NoSourceLogo}</a></li>
+							{/block:ContentSource}
+						</ul>
+						<div class="clear"></div>
+						{/block:Date}
+						{block:PermalinkPage}
+						{block:HasTags}
+						<ul class="tags">
+                    		{block:Tags}<li><a href="{TagURL}">#{Tag}</a> </li>{/block:Tags}
+						</ul>
+						<div class="clear"></div>
+						{/block:HasTags}
+						{/block:PermalinkPage}
+					</footer>
+				</div>
+            </div>
+            {/block:Text}
+
+            {block:Photo}
+            <div class="photo inner" style="background: url({PhotoURL-1280}) no-repeat center center;-moz-background-size: cover;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;">
+                <div class="noise"></div>
+				<div class="pad">
+                	<footer class="metadata">
+						{block:Caption}
+						<ul class="desc">
+							<li>{Caption}</li>
+						</ul>
+						<div class="clear"></div>
+						{/block:Caption}
+						{block:Date}
+						<ul class="index">
+							<li><a href="{Permalink}" class="time" alt="{PhotoAlt}"> <time datetime="{Year}-{MonthNumberWithZero}-{DayOfMonthWithZero}"> {DayOfMonth} {Month} {Year}</time></a></li>
+							{block:NoteCount}
+							<li> <a class="notecount" href="{Permalink}">{NoteCountWithLabel}</a></li>
+							{/block:NoteCount}
+							{block:ContentSource}
+							<li><a href="{SourceURL}"> {lang:Source}:{block:NoSourceLogo}{SourceTitle}{/block:NoSourceLogo}</a></li>
+							{/block:ContentSource}
+						</ul>
+						<div class="clear"></div>
+						{/block:Date}
+						{block:PermalinkPage}
+						{block:HasTags}
+						<ul class="tags">
+							{block:Tags}<li><a href="{TagURL}">#{Tag}</a> </li>{/block:Tags}
+						</ul>
+						<div class="clear"></div>
+						{/block:HasTags}
+						{/block:PermalinkPage}
+					</footer>
+				</div>
+            </div>
+            {/block:Photo}
+
+            {block:Photoset}
+            <div class="photoset inner">
+                <div class="noise"></div>
+                {block:Photos}
+                <div class="photoset-img" style="background: url({PhotoURL-1280}) no-repeat center center;-moz-background-size: cover;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;">
+                </div>
+                {block:Photos}
+				<div class="pad">
+                	<footer class="metadata">
+						{block:Caption}
+						<ul class="desc">
+							<li>{Caption}</li>
+						</ul>
+						<div class="clear"></div>
+						{/block:Caption}
+						{block:Date}
+						<ul class="index">
+							<li> <a href="{Permalink}" class="time"> <time datetime="{Year}-{MonthNumberWithZero}-{DayOfMonthWithZero}"> {DayOfMonth} {Month} {Year}</time></a></li>
+							{block:NoteCount}
+							<li> <a class="notecount" href="{Permalink}">{NoteCountWithLabel}</a></li>
+							{/block:NoteCount}
+							{block:ContentSource}
+							<li> <a href="{SourceURL}"> {lang:Source}:{block:NoSourceLogo}{SourceTitle}{/block:NoSourceLogo}</a></li>
+							{/block:ContentSource}
+						</ul>
+						<div class="clear"></div>
+						{/block:Date}
+						{block:PermalinkPage}
+						{block:HasTags}
+						<ul class="tags">
+							{block:Tags}<li><a href="{TagURL}">#{Tag}</a> </li>{/block:Tags}
+						</ul>
+						<div class="clear"></div>
+						{/block:HasTags}
+						{/block:PermalinkPage}
+					</footer>
+				</div>
+            </div>
+            {/block:Photoset}
+
+            {block:Quote}
+            <div class="quote inner">
+            	<div class="pad">
+                	<h1 class="title"><a href="{URL}">"{Quote}"</a></h1>
+					<footer class="metadata">
+						{block:Source}
+						<ul class="desc">
+							<li>{Source}</li>
+						</ul>
+						<div class="clear"></div>
+						{/block:Source}
+						{block:Date}
+						<ul class="index">
+							<li> <a href="{Permalink}" class="time"> <time datetime="{Year}-{MonthNumberWithZero}-{DayOfMonthWithZero}"> {DayOfMonth} {Month} {Year}</time></a></li>
+							{block:NoteCount}
+							<li> <a class="notecount" href="{Permalink}">{NoteCountWithLabel}</a></li>
+							{/block:NoteCount}
+							{block:ContentSource}
+							<li> <a href="{SourceURL}"> {lang:Source}:{block:NoSourceLogo}{SourceTitle}{/block:NoSourceLogo}</a></li>
+							{/block:ContentSource}
+						</ul>
+						<div class="clear"></div>
+						{/block:Date}
+						{block:PermalinkPage}
+						{block:HasTags}
+						<ul class="tags">
+							{block:Tags}<li><a href="{TagURL}">#{Tag}</a> </li>{/block:Tags}
+						</ul>
+						<div class="clear"></div>
+						{/block:HasTags}
+						{/block:PermalinkPage}
+					</footer>
+				</div>
+            </div>
+            {/block:Quote}
+
+            {block:Link}
+            <div class="link inner">
+            	<div class="pad">
+                	<h1 class="title"><a href="{URL}">{Name}</a></h1>
+					{block:Description}{Description}{/block:Description}
+					<footer class="metadata">
+						{block:Date}
+						<ul class="index">
+							<li> <a href="{Permalink}" class="time"> <time datetime="{Year}-{MonthNumberWithZero}-{DayOfMonthWithZero}"> {DayOfMonth} {Month} {Year}</time></a></li>
+							{block:NoteCount}<li> <a class="notecount" href="{Permalink}">{NoteCountWithLabel}</a></li>{/block:NoteCount}
+							{block:ContentSource}
+							<li> <a href="{SourceURL}"> {lang:Source}:{block:NoSourceLogo}{SourceTitle}{/block:NoSourceLogo}</a></li>
+							{/block:ContentSource}
+						</ul>
+						<div class="clear"></div>
+						{/block:Date}
+						{block:PermalinkPage}
+						{block:HasTags}
+						<ul class="tags">
+							{block:Tags}<li><a href="{TagURL}">#{Tag}</a> </li>{/block:Tags}
+						</ul>
+						<div class="clear"></div>
+						{/block:HasTags}
+						{/block:PermalinkPage}
+					</footer>
+				</div>
+            </div>
+            {/block:Link}
+
+            {block:Chat}
+            <div class="chat inner">
+            	<div class="pad">
+                	<ul>
+                    	{block:Lines}<li class="{Alt}"><p>{block:Label}<strong>{Label}</strong>{/block:Label} {Line} </p></li>{/block:Lines}
+					</ul>
+					<footer class="metadata">
+						{block:Date}
+						<ul class="index">
+                    		<li><a href="{Permalink}" class="time"> <time datetime="{Year}-{MonthNumberWithZero}-{DayOfMonthWithZero}"> {DayOfMonth} {Month} {Year}</time></a></li>
+							{block:NoteCount}
+							<li> <a class="notecount" href="{Permalink}">{NoteCountWithLabel}</a></li>
+							{/block:NoteCount}
+							{block:ContentSource}
+							<li><a href="{SourceURL}"> {lang:Source}:{block:NoSourceLogo}{SourceTitle}{/block:NoSourceLogo}</a></li>
+							{/block:ContentSource}
+						</ul>
+						<div class="clear"></div>
+						{/block:Date}
+						{block:PermalinkPage}
+						{block:HasTags}
+						<ul class="tags">
+                    		{block:Tags}<li><a href="{TagURL}">#{Tag}</a> </li>{/block:Tags}
+						</ul>
+						<div class="clear"></div>
+						{/block:HasTags}
+						{/block:PermalinkPage}
+					</footer>
+				</div>
+            </div>
+            {/block:Chat}
+
+            {block:Audio}
+            <div class="photo inner" style="background: url({AlbumArtURL}) no-repeat center center;-moz-background-size: cover;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;">
+                <div class="noise"></div>
+				<div class="pad">
+                	<footer class="metadata audioplr">
+						<ul class="player">
+							<li>{AudioPlayerWhite}</li>
+						</ul>
+						{block:TrackName}
+						<ul class="title">
+							<li>{TrackName}</li>
+						</ul>
+						{/block:TrackName}
+						{block:Caption}
+						<ul class="desc">
+							<li>{Caption}</li>
+						</ul>
+						{/block:Caption}
+						<div class="clear"></div>
+						{block:Date}
+						<ul class="index">
+							<li><a href="{Permalink}" class="time"> <time datetime="{Year}-{MonthNumberWithZero}-{DayOfMonthWithZero}"> {DayOfMonth} {Month} {Year}</time></a></li>
+							{block:NoteCount}<li> <a class="notecount" href="{Permalink}">{NoteCountWithLabel}</a></li>{/block:NoteCount}
+							{block:ContentSource}
+							<li><a href="{SourceURL}"> {lang:Source}:{block:NoSourceLogo}{SourceTitle}{/block:NoSourceLogo}</a></li>
+							{/block:ContentSource}
+						</ul>
+						<div class="clear"></div>
+						{/block:Date}
+						{block:PermalinkPage}
+						{block:HasTags}
+						<ul class="tags">
+							{block:Tags}<li><a href="{TagURL}">#{Tag}</a> </li>{/block:Tags}
+						</ul>
+						<div class="clear"></div>
+						{/block:HasTags}
+						{/block:PermalinkPage}
+					</footer>
+				</div>
+            </div>
+            {/block:Audio}
+
+            {block:Video}
+            <div class="video inner">
+                {Video-700}
+				<div class="pad">
+                	<footer class="metadata">
+						{block:Caption}
+						<ul class="desc"><li>{Caption}</li></ul>
+						<div class="clear"></div>
+						{/block:Caption}
+						{block:Date}
+						<ul class="index">
+							<li><a href="{Permalink}" class="time"> <time datetime="{Year}-{MonthNumberWithZero}-{DayOfMonthWithZero}"> {DayOfMonth} {Month} {Year}</time></a></li>
+							{block:NoteCount}
+							<li> <a class="notecount" href="{Permalink}">{NoteCountWithLabel}</a></li>
+							{/block:NoteCount}
+							{block:ContentSource}
+							<li><a href="{SourceURL}"> {lang:Source}:{block:NoSourceLogo}{SourceTitle}{/block:NoSourceLogo}</a></li>
+							{/block:ContentSource}
+						</ul>
+						<div class="clear"></div>
+						{/block:Date}
+						{block:PermalinkPage}
+						{block:HasTags}
+						<ul class="tags">
+							{block:Tags}<li><a href="{TagURL}">#{Tag}</a> </li>{/block:Tags}
+						</ul>
+						<div class="clear"></div>
+						{/block:HasTags}
+						{/block:PermalinkPage}
+					</footer>
+				</div>
+            </div>
+            {/block:Video}
+
+            {block:Answer}
+            <div class="answer inner">
+            <div class="pad">
+                <h1 class="title">{Question}</h1>
+                <div class="user"><img src="{AskerPortraitURL-96}"/><p>{Asker}</p></div>
+                <footer class="metadata">
+                	{Answer}
+					{block:Date}
+					<ul class="index">
+                    	<li><a href="{Permalink}" class="time"> <time datetime="{Year}-{MonthNumberWithZero}-{DayOfMonthWithZero}"> {DayOfMonth} {Month} {Year}</time></a></li>
+						{block:NoteCount}
+						<li> <a class="notecount" href="{Permalink}">{NoteCountWithLabel}</a></li>
+						{/block:NoteCount}
+						{block:ContentSource}
+						<li><a href="{SourceURL}"> {lang:Source}:{block:NoSourceLogo}{SourceTitle}{/block:NoSourceLogo}</a></li>
+						{/block:ContentSource}
+					</ul>
+					<div class="clear"></div>
+					{/block:Date}
+					{block:PermalinkPage}
+					{block:HasTags}
+					<ul class="tags">
+                    	{block:Tags}<li><a href="{TagURL}">#{Tag}</a> </li>{/block:Tags}
+					</ul>
+					<div class="clear"></div>
+					{/block:HasTags}
+					{/block:PermalinkPage}
+				</footer>
+            </div>
+            </div>
+            {/block:Answer}
+            
+         </article>
+        {/block:Posts}
+        
+        {block:Pagination}
+        <nav id="pagination">
+            <ul>
+                {block:NextPage}<li><a href="{NextPage}">{lang:Next page}</a></li>{/block:NextPage}
+                {block:PreviousPage}<li><a href="{PreviousPage}">{lang:Previous page}</a></li>{/block:PreviousPage}
+            </ul>
+        </nav>
+        {/block:Pagination}
+        
+    </div>
+        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="http://static.tumblr.com/iwtk77u/Yhym2yygt/jquery.imagesloaded.min.js"></script>
+	<script src="http://static.tumblr.com/wgijwsy/u2vm2hxv6/jquery.infinitescroll.min.js"></script>
+    <script>
+        (function () {
+            var $tumblelog = $('#content');
+            $tumblelog.infinitescroll({
+                navSelector: "#pagination",
+                nextSelector: "#pagination a:last-child",
+                itemSelector: "article",
+            },
+            function (newElements) {
+                var $newElems = $(newElements).css({
+                    opacity: 0
+                });
+                $newElems.imagesLoaded(function () {
+                    $newElems.animate({
+                        opacity: 1
+                    });
+                    //$tumblelog.masonry('appended', $newElems);
+                });
+            });
+            $tumblelog.imagesLoaded(function () {
+                /*$tumblelog.masonry({
+                    columnWidth: function (containerWidth) {
+                        return containerWidth / 100;
+                    }
+                });*/
+            });
+            setInterval(function(){ 
+    	        var globalH = $(window).innerHeight();
+		        $(".photo, .photoset-img, .text, .quote, .link, .video, .chat, .audio").css('height',globalH);    
+	        }, 50);
+        })();
+    </script>
+    {block:IfGoogleAnalyticsID}
+    <script>
+    var _gaq=[['_setAccount','{text:Google Analytics ID}'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>
+    {/block:IfGoogleAnalyticsID}
+</body>
+</html>
